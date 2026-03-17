@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eid Mubarak - A Digital Greeting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #d4a853;
+      --gold-light: #f0d68a;
+      --deep-blue: #0a0e27;
+      --navy: #0f1638;
+      --teal: #1a5c5a;
+      --emerald: #0d7c5f;
+      --purple: #2d1b69;
+      --warm-white: #fdf6e3;
+      --bg1: #0a0e27;
+      --bg2: #0f1638;
+      --accent: #d4a853;
+      --accent-light: #f0d68a;
+      --transition-theme: background 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+    }
+
+    [data-theme="emerald"] {
+      --gold: #4ade80;
+      --gold-light: #86efac;
+      --deep-blue: #052e16;
+      --navy: #14532d;
+      --bg1: #052e16;
+      --bg2: #14532d;
+      --accent: #4ade80;
+      --accent-light: #86efac;
+    }
+
+    [data-theme="amethyst"] {
+      --gold: #c084fc;
+      --gold-light: #e9d5ff;
+      --deep-blue: #1a0533;
+      --navy: #2e1065;
+      --bg1: #1a0533;
+      --bg2: #2e1065;
+      --accent: #c084fc;
+      --accent-light: #e9d5ff;
+    }
+
+    body {
+      transition: var(--transition-theme);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--deep-blue);
+      color: var(--warm-white);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ==================== PRELOADER ==================== */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--deep-blue);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-crescent {
+      font-size: 4rem;
+      animation: crescentPulse 1.5s ease-in-out infinite;
+    }
+
+    .loader-text {
+      margin-top: 1.5rem;
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      animation: fadeInOut 1.5s ease-in-out infinite;
+    }
+
+    @keyframes crescentPulse {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: .7;
+      }
+
+      50% {
+        transform: scale(1.2) rotate(10deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInOut {
+
+      0%,
+      100% {
+        opacity: .4;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* ==================== CANVAS ==================== */
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, .8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, .6), transparent),
+        radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+      background-size: 200px 100px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: .5;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .hero-bg-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 168, 83, .12) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: .6;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    .crescent-moon {
+      font-size: 5rem;
+      filter: drop-shadow(0 0 30px rgba(212, 168, 83, .6));
+      animation: moonFloat 6s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes moonFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(5deg);
+      }
+    }
+
+    .arabic-greeting {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--gold);
+      text-shadow: 0 0 40px rgba(212, 168, 83, .4);
+      margin-bottom: .5rem;
+      opacity: 0;
+      animation: revealText 1s ease forwards .5s;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), #c9956b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: revealText 1s ease forwards .8s;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(.95rem, 2vw, 1.25rem);
+      font-weight: 300;
+      color: rgba(253, 246, 227, .7);
+      max-width: 500px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: revealText 1s ease forwards 1.1s;
+    }
+
+    @keyframes revealText {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      opacity: 0;
+      animation: revealText 1s ease forwards 1.6s;
+    }
+
+    .scroll-indicator span {
+      font-size: .75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(253, 246, 227, .5);
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(45deg);
+      animation: bounceArrow 2s ease infinite;
+    }
+
+    @keyframes bounceArrow {
+
+      0%,
+      100% {
+        transform: rotate(45deg) translate(0, 0);
+        opacity: .4;
+      }
+
+      50% {
+        transform: rotate(45deg) translate(5px, 5px);
+        opacity: 1;
+      }
+    }
+
+    /* ==================== SECTION STYLES ==================== */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-divider .line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .section-divider .ornament {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* ==================== LANTERNS SECTION ==================== */
+    .lanterns-section {
+      background: linear-gradient(180deg, var(--deep-blue) 0%, #0d1230 50%, var(--deep-blue) 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .lanterns-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0 3rem;
+    }
+
+    .lantern {
+      position: relative;
+      cursor: pointer;
+      transition: transform .3s ease;
+    }
+
+    .lantern:hover {
+      transform: scale(1.08);
+    }
+
+    .lantern svg {
+      width: 80px;
+      height: 160px;
+      filter: drop-shadow(0 0 15px var(--glow-color, rgba(212, 168, 83, .5)));
+      animation: lanternSwing var(--swing-dur, 4s) ease-in-out infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes lanternSwing {
+
+      0%,
+      100% {
+        transform: rotate(-3deg);
+      }
+
+      50% {
+        transform: rotate(3deg);
+      }
+    }
+
+    .lantern-message {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: 'Amiri', serif;
+      font-size: .9rem;
+      color: var(--gold-light);
+      opacity: 0;
+      transition: opacity .4s ease, bottom .4s ease;
+    }
+
+    .lantern.active .lantern-message {
+      opacity: 1;
+      bottom: -35px;
+    }
+
+    .lanterns-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--gold-light);
+      margin-bottom: .5rem;
+    }
+
+    .lanterns-sub {
+      font-weight: 300;
+      font-size: .9rem;
+      color: rgba(253, 246, 227, .5);
+    }
+
+    /* ==================== CARD SECTION ==================== */
+    .card-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--deep-blue), #0b1035, var(--deep-blue));
+    }
+
+    .eid-card {
+      position: relative;
+      width: min(90vw, 520px);
+      perspective: 1200px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      min-height: 600px;
+      transition: transform .8s cubic-bezier(.4, .2, .2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .card-front {
+      background: linear-gradient(145deg, #1a1f4e, #0f1638, #1a1040);
+      border: 1px solid rgba(212, 168, 83, .25);
+      box-shadow:
+        0 0 40px rgba(212, 168, 83, .1),
+        inset 0 0 60px rgba(212, 168, 83, .03);
+    }
+
+    .card-front::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(212, 168, 83, .12);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .card-front .card-crescent {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 20px rgba(212, 168, 83, .5));
+      margin-bottom: 1.5rem;
+    }
+
+    .card-front h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .card-front h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-front p {
+      font-size: .85rem;
+      color: rgba(253, 246, 227, .5);
+      letter-spacing: 1px;
+    }
+
+    .geometric-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: .04;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .card-back {
+      background: linear-gradient(145deg, #1a2f4e, #0f1f38, #102040);
+      border: 1px solid rgba(212, 168, 83, .25);
+      transform: rotateY(180deg);
+      box-shadow:
+        0 0 40px rgba(212, 168, 83, .1),
+        inset 0 0 60px rgba(212, 168, 83, .03);
+    }
+
+    .card-back::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(212, 168, 83, .12);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .card-back .message {
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      line-height: 2;
+      color: var(--warm-white);
+      max-width: 400px;
+    }
+
+    .card-back .message em {
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    .card-back .signature {
+      margin-top: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold);
+    }
+
+    .card-tap-hint {
+      margin-top: 1.5rem;
+      font-size: .8rem;
+      color: rgba(253, 246, 227, .4);
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+
+    /* ==================== MOSQUE SILHOUETTE ==================== */
+    .mosque-section {
+      position: relative;
+      padding: 0;
+      height: 50vh;
+      min-height: 350px;
+      background: linear-gradient(180deg, var(--deep-blue) 0%, #0c1445 40%, #162055 100%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .mosque-svg {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
+      filter: drop-shadow(0 -5px 20px rgba(212, 168, 83, .15));
+    }
+
+    .mosque-verse {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      max-width: 600px;
+      padding: 0 1rem;
+    }
+
+    .mosque-verse blockquote {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--gold-light);
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .mosque-verse cite {
+      display: block;
+      margin-top: .8rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: .8rem;
+      color: rgba(253, 246, 227, .4);
+      font-style: normal;
+    }
+
+    /* ==================== WISHES SECTION ==================== */
+    .wishes-section {
+      text-align: center;
+      background: linear-gradient(180deg, #162055, var(--deep-blue));
+      padding-bottom: 3rem;
+    }
+
+    .wishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 2rem auto 0;
+    }
+
+    .wish-card {
+      background: linear-gradient(145deg, rgba(26, 31, 78, .6), rgba(15, 22, 56, .8));
+      border: 1px solid rgba(212, 168, 83, .1);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+      cursor: default;
+    }
+
+    .wish-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 168, 83, .3);
+      box-shadow: 0 10px 30px rgba(212, 168, 83, .08);
+    }
+
+    .wish-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .wish-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .wish-card p {
+      font-size: .85rem;
+      line-height: 1.7;
+      color: rgba(253, 246, 227, .6);
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+      background: var(--deep-blue);
+      border-top: 1px solid rgba(212, 168, 83, .08);
+    }
+
+    .footer-crescent {
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    }
+
+    .footer-text {
+      font-family: 'Amiri', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: .5rem;
+    }
+
+    .footer-sub {
+      font-size: .75rem;
+      color: rgba(253, 246, 227, .3);
+    }
+
+    /* ==================== FLOATING ACTION ==================== */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--gold), #c9956b);
+      color: var(--deep-blue);
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(212, 168, 83, .4);
+      transition: transform .3s ease, box-shadow .3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(212, 168, 83, .6);
+    }
+
+    /* ==================== FIREWORKS ==================== */
+    .firework-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* ==================== SCROLL ANIMATIONS ==================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    /* ==================== PERSONALIZATION MODAL ==================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(5, 7, 20, .92);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeInOverlay .5s ease forwards;
+    }
+
+    @keyframes fadeInOverlay {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-overlay.hiding {
+      animation: fadeOutOverlay .4s ease forwards;
+    }
+
+    @keyframes fadeOutOverlay {
+      to {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .modal-box {
+      background: linear-gradient(145deg, #1a1f4e, #0f1638);
+      border: 1px solid rgba(212, 168, 83, .3);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(212, 168, 83, .12);
+      transform: translateY(30px);
+      animation: slideUpBox .5s .1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideUpBox {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-box .modal-icon {
+      font-size: 3rem;
+      margin-bottom: .8rem;
+    }
+
+    .modal-box h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+
+    .modal-box p {
+      font-size: .85rem;
+      color: rgba(253, 246, 227, .5);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: .8rem 1.1rem;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(212, 168, 83, .2);
+      border-radius: 10px;
+      color: var(--warm-white);
+      font-family: 'Poppins', sans-serif;
+      font-size: .95rem;
+      outline: none;
+      margin-bottom: .9rem;
+      transition: border-color .3s;
+    }
+
+    .modal-input:focus {
+      border-color: var(--gold);
+    }
+
+    .modal-input::placeholder {
+      color: rgba(253, 246, 227, .3);
+    }
+
+    .modal-submit {
+      width: 100%;
+      padding: .85rem;
+      background: linear-gradient(135deg, var(--gold), #c9956b);
+      border: none;
+      border-radius: 10px;
+      color: var(--deep-blue);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .modal-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 168, 83, .3);
+    }
+
+    .modal-skip {
+      display: block;
+      margin-top: .8rem;
+      font-size: .8rem;
+      color: rgba(253, 246, 227, .3);
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color .2s;
+    }
+
+    .modal-skip:hover {
+      color: rgba(253, 246, 227, .6);
+    }
+
+    /* ==================== THEME SWITCHER ==================== */
+    .theme-panel {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.2rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .5rem;
+    }
+
+    .theme-toggle-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 83, .3);
+      background: rgba(10, 14, 39, .8);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(212, 168, 83, .2);
+    }
+
+    .theme-options {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .theme-options.open {
+      max-height: 200px;
+    }
+
+    .theme-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .theme-swatch:hover,
+    .theme-swatch.active {
+      transform: scale(1.15);
+      border-color: rgba(255, 255, 255, .5);
+    }
+
+    /* ==================== AUDIO TOGGLE ==================== */
+    .audio-btn {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 100;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 83, .3);
+      background: rgba(10, 14, 39, .85);
+      backdrop-filter: blur(10px);
+      color: var(--gold);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 20px rgba(212, 168, 83, .25);
+    }
+
+    .audio-btn.playing {
+      box-shadow: 0 0 0 0 rgba(212, 168, 83, .4);
+      animation: audioPulse 2s infinite;
+    }
+
+    @keyframes audioPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(212, 168, 83, .4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 14px rgba(212, 168, 83, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(212, 168, 83, 0);
+      }
+    }
+
+    /* ==================== DOWNLOAD BUTTON ==================== */
+    .download-btn {
+      margin-top: 1.5rem;
+      padding: .7rem 1.8rem;
+      background: transparent;
+      border: 1px solid rgba(212, 168, 83, .4);
+      border-radius: 30px;
+      color: var(--gold-light);
+      font-family: 'Poppins', sans-serif;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .3s, transform .2s, box-shadow .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .download-btn:hover {
+      background: rgba(212, 168, 83, .12);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 168, 83, .15);
+    }
+
+    /* ==================== COUNTDOWN SECTION ==================== */
+    .countdown-section {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      background: linear-gradient(180deg, var(--deep-blue), #0c1445, var(--deep-blue));
+    }
+
+    .countdown-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      color: var(--gold-light);
+      margin-bottom: .3rem;
+    }
+
+    .countdown-sub {
+      font-size: .8rem;
+      color: rgba(253, 246, 227, .4);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .countdown-unit {
+      background: linear-gradient(145deg, rgba(26, 31, 78, .7), rgba(15, 22, 56, .9));
+      border: 1px solid rgba(212, 168, 83, .15);
+      border-radius: 16px;
+      padding: 1.2rem 1.6rem;
+      min-width: 80px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .countdown-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .countdown-label {
+      font-size: .65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(253, 246, 227, .4);
+      margin-top: .4rem;
+      display: block;
+    }
+
+    .countdown-done {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      display: none;
+    }
+
+    /* ==================== DU'A SECTION ==================== */
+    .dua-section {
+      text-align: center;
+      background: linear-gradient(180deg, var(--deep-blue), #0c1445);
+      padding: 4rem 1.5rem;
+    }
+
+    .dua-grid {
+      max-width: 750px;
+      margin: 2rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+
+    .dua-tile {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(212, 168, 83, .12);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .3s;
+    }
+
+    .dua-tile:hover {
+      border-color: rgba(212, 168, 83, .3);
+    }
+
+    .dua-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.3rem;
+    }
+
+    .dua-header-left {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .dua-header-icon {
+      font-size: 1.3rem;
+    }
+
+    .dua-header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      text-align: left;
+    }
+
+    .dua-chevron {
+      color: var(--gold);
+      font-size: .9rem;
+      transition: transform .35s ease;
+    }
+
+    .dua-tile.open .dua-chevron {
+      transform: rotate(180deg);
+    }
+
+    .dua-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .45s ease;
+    }
+
+    .dua-tile.open .dua-body {
+      max-height: 300px;
+    }
+
+    .dua-content {
+      padding: .5rem 1.5rem 1.3rem;
+      border-top: 1px solid rgba(212, 168, 83, .08);
+    }
+
+    .dua-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      direction: rtl;
+      margin-bottom: .6rem;
+      line-height: 1.9;
+    }
+
+    .dua-translation {
+      font-size: .85rem;
+      color: rgba(253, 246, 227, .65);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: .4rem;
+    }
+
+    .dua-ref {
+      font-size: .75rem;
+      color: rgba(253, 246, 227, .3);
+      letter-spacing: 1px;
+    }
+
+    /* ==================== TASBIH SECTION ==================== */
+    .tasbih-section {
+      text-align: center;
+      background: linear-gradient(180deg, #0c1445, var(--deep-blue));
+      padding: 4rem 1.5rem;
+    }
+
+    .tasbih-card {
+      max-width: 420px;
+      margin: 2rem auto 0;
+      background: linear-gradient(145deg, rgba(26, 31, 78, .7), rgba(15, 22, 56, .9));
+      border: 1px solid rgba(212, 168, 83, .2);
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 0 40px rgba(212, 168, 83, .06);
+    }
+
+    .tasbih-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .tasbih-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 83, .25);
+      background: transparent;
+      color: var(--gold);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .tasbih-nav-btn:hover {
+      background: rgba(212, 168, 83, .1);
+    }
+
+    .tasbih-pos {
+      font-size: .8rem;
+      letter-spacing: 2px;
+      color: rgba(253, 246, 227, .4);
+    }
+
+    .tasbih-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      margin-bottom: .3rem;
+      line-height: 1.4;
+      direction: rtl;
+    }
+
+    .tasbih-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold-light);
+      margin-bottom: .2rem;
+    }
+
+    .tasbih-meaning {
+      font-size: .82rem;
+      color: rgba(253, 246, 227, .5);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Ring counter */
+    .tasbih-ring-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1rem;
+    }
+
+    .tasbih-ring-svg {
+      width: 140px;
+      height: 140px;
+      transform: rotate(-90deg);
+    }
+
+    .tasbih-ring-bg {
+      fill: none;
+      stroke: rgba(212, 168, 83, .1);
+      stroke-width: 8;
+    }
+
+    .tasbih-ring-prog {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 339.3;
+      stroke-dashoffset: 339.3;
+      transition: stroke-dashoffset .4s ease;
+    }
+
+    .tasbih-count-display {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tasbih-count-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .tasbih-count-target {
+      font-size: .72rem;
+      color: rgba(253, 246, 227, .3);
+      letter-spacing: 1px;
+    }
+
+    .tasbih-tap-btn {
+      width: 100%;
+      padding: .9rem;
+      background: linear-gradient(135deg, rgba(212, 168, 83, .15), rgba(212, 168, 83, .08));
+      border: 1px solid rgba(212, 168, 83, .3);
+      border-radius: 14px;
+      color: var(--gold-light);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-bottom: .8rem;
+    }
+
+    .tasbih-tap-btn:active {
+      transform: scale(.97);
+    }
+
+    .tasbih-tap-btn:hover {
+      background: rgba(212, 168, 83, .2);
+    }
+
+    .tasbih-target-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+
+    .tasbih-target-row span {
+      font-size: .8rem;
+      color: rgba(253, 246, 227, .4);
+    }
+
+    .tasbih-target-btn {
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      border: 1px solid rgba(212, 168, 83, .2);
+      background: transparent;
+      color: rgba(253, 246, 227, .5);
+      font-size: .8rem;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+
+    .tasbih-target-btn.active {
+      background: rgba(212, 168, 83, .2);
+      color: var(--gold);
+      border-color: rgba(212, 168, 83, .5);
+    }
+
+    .tasbih-complete-msg {
+      margin-top: .7rem;
+      font-family: 'Amiri', serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      min-height: 1.5rem;
+    }
+
+    /* mini dots progress */
+    .tasbih-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      max-width: 420px;
+      margin: 1.5rem auto 0;
+    }
+
+    .tasbih-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(212, 168, 83, .12);
+      transition: background .4s;
+    }
+
+    .tasbih-dot.done {
+      background: var(--gold);
+    }
+
+    .tasbih-dot.current {
+      background: var(--gold-light);
+      box-shadow: 0 0 6px var(--gold);
+    }
+
+    @media (max-width: 600px) {
+      .lanterns-row {
+        gap: 1rem;
+      }
+
+      .lantern svg {
+        width: 55px;
+        height: 110px;
+      }
+
+      .card-face {
+        padding: 2rem 1.2rem;
+      }
+
+      .card-front h2 {
+        font-size: 1.8rem;
+      }
+
+      .card-front h3 {
+        font-size: 1.2rem;
+      }
+
+      .wishes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ==================== PERSONALIZATION MODAL ==================== -->
+<div class="modal-overlay" id="personalize-modal">
+  <div class="modal-box">
+    <div class="modal-icon">🌙</div>
+    <h2>Eid Mubarak!</h2>
+    <p>Personalize your greeting card</p>
+    <input class="modal-input" id="input-your-name" type="text" placeholder="Your name (recipient)" maxlength="40">
+    <input class="modal-input" id="input-sender" type="text" placeholder="Sender's name" maxlength="40">
+    <button class="modal-submit" id="modal-submit-btn">✨ Personalize My Card</button>
+    <button class="modal-skip" id="modal-skip-btn">Skip for now</button>
+  </div>
+</div>
+
+<!-- Theme Switcher Panel -->
+<div class="theme-panel">
+  <button class="theme-toggle-btn" id="theme-toggle" title="Change Theme">🎨</button>
+  <div class="theme-options" id="theme-options">
+    <div class="theme-swatch active" data-theme="" style="background:linear-gradient(135deg,#0a0e27,#d4a853)" title="Midnight Gold"></div>
+    <div class="theme-swatch" data-theme="emerald" style="background:linear-gradient(135deg,#052e16,#4ade80)" title="Emerald Ramadan"></div>
+    <div class="theme-swatch" data-theme="amethyst" style="background:linear-gradient(135deg,#1a0533,#c084fc)" title="Royal Amethyst"></div>
+  </div>
+</div>
+
+<!-- Audio Toggle -->
+<button class="audio-btn" id="audio-btn" title="Toggle ambient sound">🔇</button>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-crescent">☪</div>
+    <div class="loader-text">Preparing your Eid greeting...</div>
+  </div>
+
+  <!-- Particle Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Firework Container -->
+  <div class="firework-container" id="fireworks"></div>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="stars"></div>
+    <div class="hero-bg-glow"></div>
+    <div class="crescent-moon">☪</div>
+    <h1 class="arabic-greeting">عيد مبارك</h1>
+    <h2 class="hero-title">Eid Mubarak</h2>
+    <p class="hero-subtitle">
+      May this blessed occasion bring peace to your heart,
+      joy to your soul, and love to your life.
+    </p>
+    <div class="scroll-indicator">
+      <span>Explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ==================== LANTERNS ==================== -->
+  <section class="lanterns-section" id="lanterns">
+    <div class="section-divider reveal">
+      <div class="line"></div>
+      <span class="ornament">✦</span>
+      <div class="line"></div>
+    </div>
+    <h2 class="lanterns-heading reveal">Lanterns of Blessings</h2>
+    <p class="lanterns-sub reveal">Tap each lantern to reveal a blessing</p>
+    <div class="lanterns-row reveal" id="lanterns-row"></div>
+  </section>
+
+  <!-- ==================== CARD ==================== -->
+  <section class="card-section" id="card">
+    <div class="eid-card reveal">
+      <div class="card-inner" id="card-inner">
+        <div class="card-face card-front">
+          <div class="geometric-pattern" id="geo-pattern"></div>
+          <div class="card-crescent">☪</div>
+          <h2>عيد مبارك</h2>
+          <h3>Eid Mubarak</h3>
+          <div style="width:50px;height:1px;background:var(--gold);margin:1rem 0;opacity:.4"></div>
+          <p>TAP TO OPEN YOUR CARD</p>
+        </div>
+        <div class="card-face card-back">
+          <p class="message">
+            On this joyous day of <em>Eid</em>,<br>
+            may your heart be filled with <em>gratitude</em>,<br>
+            your home with <em>laughter</em>,<br>
+            and your life with <em>endless blessings</em>.<br><br>
+            May every prayer you've made<br>
+            during the holy month<br>
+            be answered with grace.<br>
+          </p>
+          <div class="signature">— With love & warm wishes</div>
+          <p class="card-tap-hint">tap to flip back</p>
+        </div>
+      </div>
+      <button class="download-btn" id="download-btn">📥 Download Card</button>
+    </div>
+  </section>
+
+  <!-- ==================== MOSQUE ==================== -->
+  <section class="mosque-section" id="mosque">
+    <div class="mosque-verse reveal">
+      <blockquote>
+        "And He found you lost and guided you."
+      </blockquote>
+      <cite>— Quran 93:7</cite>
+    </div>
+    <svg class="mosque-svg" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Main dome -->
+      <ellipse cx="450" cy="160" rx="120" ry="100" fill="#0a0e27" stroke="rgba(212,168,83,.25)" stroke-width="1" />
+      <!-- Crescent on dome -->
+      <text x="445" y="85" font-size="28" fill="#d4a853" text-anchor="middle">☪</text>
+      <!-- Dome base -->
+      <rect x="330" y="155" width="240" height="145" fill="#0a0e27" stroke="rgba(212,168,83,.15)" stroke-width="1" />
+      <!-- Left minaret -->
+      <rect x="280" y="80" width="30" height="220" fill="#0a0e27" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <ellipse cx="295" cy="80" rx="15" ry="20" fill="#0a0e27" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <text x="295" y="68" font-size="14" fill="#d4a853" text-anchor="middle">☪</text>
+      <!-- Right minaret -->
+      <rect x="590" y="80" width="30" height="220" fill="#0a0e27" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <ellipse cx="605" cy="80" rx="15" ry="20" fill="#0a0e27" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <text x="605" y="68" font-size="14" fill="#d4a853" text-anchor="middle">☪</text>
+      <!-- Door arch -->
+      <path d="M430 300 V220 Q450 190 470 220 V300" fill="none" stroke="rgba(212,168,83,.3)" stroke-width="1.5" />
+      <!-- Windows -->
+      <circle cx="390" cy="210" r="12" fill="none" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <circle cx="510" cy="210" r="12" fill="none" stroke="rgba(212,168,83,.2)" stroke-width="1" />
+      <!-- Small domes -->
+      <ellipse cx="370" cy="165" rx="35" ry="30" fill="#0a0e27" stroke="rgba(212,168,83,.15)" stroke-width="1" />
+      <ellipse cx="530" cy="165" rx="35" ry="30" fill="#0a0e27" stroke="rgba(212,168,83,.15)" stroke-width="1" />
+      <!-- Ground line -->
+      <line x1="100" y1="300" x2="800" y2="300" stroke="rgba(212,168,83,.15)" stroke-width="1" />
+      <!-- Far buildings left -->
+      <rect x="140" y="230" width="100" height="70" fill="#0a0e27" stroke="rgba(212,168,83,.08)" stroke-width="1" />
+      <ellipse cx="190" cy="235" rx="40" ry="25" fill="#0a0e27" stroke="rgba(212,168,83,.08)" stroke-width="1" />
+      <!-- Far buildings right -->
+      <rect x="660" y="240" width="90" height="60" fill="#0a0e27" stroke="rgba(212,168,83,.08)" stroke-width="1" />
+      <ellipse cx="705" cy="245" rx="35" ry="22" fill="#0a0e27" stroke="rgba(212,168,83,.08)" stroke-width="1" />
+    </svg>
+  </section>
+
+<!-- ==================== COUNTDOWN ==================== -->
+<section class="countdown-section" id="countdown">
+  <div class="section-divider reveal"><div class="line"></div><span class="ornament">✦</span><div class="line"></div></div>
+  <h2 class="countdown-title reveal">Countdown to Eid al-Adha</h2>
+  <p class="countdown-sub reveal">JUNE 27, 2026</p>
+  <div class="countdown-grid reveal">
+    <div class="countdown-unit"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">Hours</span></div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Minutes</span></div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Seconds</span></div>
+  </div>
+  <p class="countdown-done" id="countdown-done">عيد مبارك — Eid has arrived! 🎆</p>
+</section>
+
+<!-- ==================== DU'A SECTION ==================== -->
+<section class="dua-section" id="duas">
+  <div class="section-divider reveal"><div class="line"></div><span class="ornament">✦</span><div class="line"></div></div>
+  <h2 class="lanterns-heading reveal">Sacred Du'as</h2>
+  <p class="lanterns-sub reveal">Tap to expand a prayer</p>
+  <div class="dua-grid reveal">
+    <div class="dua-tile">
+      <div class="dua-header"><div class="dua-header-left"><span class="dua-header-icon">🤲</span><span class="dua-header-title">Du'a for Eid Day</span></div><span class="dua-chevron">▼</span></div>
+      <div class="dua-body"><div class="dua-content">
+        <div class="dua-arabic">اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالإِيمَانِ وَالسَّلامَةِ وَالإِسْلامِ</div>
+        <div class="dua-translation">"O Allah, bring it over us with blessing, faith, safety and Islam."</div>
+        <div class="dua-ref">— At-Tirmidhi</div>
+      </div></div>
+    </div>
+    <div class="dua-tile">
+      <div class="dua-header"><div class="dua-header-left"><span class="dua-header-icon">🌙</span><span class="dua-header-title">Du'a for Forgiveness</span></div><span class="dua-chevron">▼</span></div>
+      <div class="dua-body"><div class="dua-content">
+        <div class="dua-arabic">رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ</div>
+        <div class="dua-translation">"Our Lord, forgive us our sins and excesses, make firm our feet, and give us victory."</div>
+        <div class="dua-ref">— Quran 3:147</div>
+      </div></div>
+    </div>
+    <div class="dua-tile">
+      <div class="dua-header"><div class="dua-header-left"><span class="dua-header-icon">💫</span><span class="dua-header-title">Du'a for Good in Both Worlds</span></div><span class="dua-chevron">▼</span></div>
+      <div class="dua-body"><div class="dua-content">
+        <div class="dua-arabic">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
+        <div class="dua-translation">"Our Lord, give us good in this world and good in the next, and save us from the Fire."</div>
+        <div class="dua-ref">— Quran 2:201</div>
+      </div></div>
+    </div>
+    <div class="dua-tile">
+      <div class="dua-header"><div class="dua-header-left"><span class="dua-header-icon">❤️</span><span class="dua-header-title">Du'a for Family Blessings</span></div><span class="dua-chevron">▼</span></div>
+      <div class="dua-body"><div class="dua-content">
+        <div class="dua-arabic">رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا</div>
+        <div class="dua-translation">"Our Lord, grant us spouses and offspring who are the comfort of our eyes, and make us leaders of the righteous."</div>
+        <div class="dua-ref">— Quran 25:74</div>
+      </div></div>
+    </div>
+    <div class="dua-tile">
+      <div class="dua-header"><div class="dua-header-left"><span class="dua-header-icon">🕌</span><span class="dua-header-title">Du'a for Acceptance</span></div><span class="dua-chevron">▼</span></div>
+      <div class="dua-body"><div class="dua-content">
+        <div class="dua-arabic">رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ</div>
+        <div class="dua-translation">"Our Lord, accept from us. Indeed, You are the Hearing, the Knowing."</div>
+        <div class="dua-ref">— Quran 2:127</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TASBIH 99 NAMES ==================== -->
+<section class="tasbih-section" id="tasbih">
+  <div class="section-divider reveal"><div class="line"></div><span class="ornament">✦</span><div class="line"></div></div>
+  <h2 class="lanterns-heading reveal">أسماء الله الحسنى</h2>
+  <p class="lanterns-sub reveal">The 99 Beautiful Names of Allah — Tap to count your Tasbih</p>
+  <div class="tasbih-card reveal">
+    <div class="tasbih-nav-row">
+      <button class="tasbih-nav-btn" id="tasbih-prev">&#8592;</button>
+      <span class="tasbih-pos" id="tasbih-pos">1 / 99</span>
+      <button class="tasbih-nav-btn" id="tasbih-next">&#8594;</button>
+    </div>
+    <div class="tasbih-arabic" id="tasbih-arabic">الرَّحْمَنُ</div>
+    <div class="tasbih-name" id="tasbih-name">Ar-Rahman</div>
+    <div class="tasbih-meaning" id="tasbih-meaning">The All-Compassionate</div>
+    <div class="tasbih-ring-wrap">
+      <svg class="tasbih-ring-svg" viewBox="0 0 120 120">
+        <circle class="tasbih-ring-bg" cx="60" cy="60" r="54"/>
+        <circle class="tasbih-ring-prog" id="tasbih-ring" cx="60" cy="60" r="54"/>
+      </svg>
+      <div class="tasbih-count-display">
+        <span class="tasbih-count-num" id="tasbih-count">0</span>
+        <span class="tasbih-count-target" id="tasbih-count-target">/ 33</span>
+      </div>
+    </div>
+    <button class="tasbih-tap-btn" id="tasbih-tap">🤲 Tap to Count</button>
+    <div class="tasbih-target-row">
+      <span>Target:</span>
+      <button class="tasbih-target-btn active" data-target="33">33</button>
+      <button class="tasbih-target-btn" data-target="99">99</button>
+      <button class="tasbih-target-btn" data-target="100">100</button>
+    </div>
+    <div class="tasbih-complete-msg" id="tasbih-msg"></div>
+  </div>
+  <div class="tasbih-dots" id="tasbih-dots"></div>
+</section>
+
+  <!-- ==================== WISHES ==================== -->
+  <section class="wishes-section" id="wishes">
+    <div class="section-divider reveal">
+      <div class="line"></div>
+      <span class="ornament">✦</span>
+      <div class="line"></div>
+    </div>
+    <h2 class="lanterns-heading reveal">Heartfelt Wishes</h2>
+    <div class="wishes-grid">
+      <div class="wish-card reveal">
+        <span class="wish-icon">🤲</span>
+        <h4>Peace</h4>
+        <p>May Allah fill your days with peace and your heart with serenity this Eid and always.</p>
+      </div>
+      <div class="wish-card reveal">
+        <span class="wish-icon">🌙</span>
+        <h4>Blessings</h4>
+        <p>May every moment of this blessed day be showered with divine blessings and mercy.</p>
+      </div>
+      <div class="wish-card reveal">
+        <span class="wish-icon">💫</span>
+        <h4>Joy</h4>
+        <p>May your celebrations be filled with laughter, love, and beautiful memories to cherish.</p>
+      </div>
+      <div class="wish-card reveal">
+        <span class="wish-icon">🕌</span>
+        <h4>Gratitude</h4>
+        <p>May we always be grateful for the blessings we have and share them with those around us.</p>
+      </div>
+      <div class="wish-card reveal">
+        <span class="wish-icon">🌟</span>
+        <h4>Prosperity</h4>
+        <p>May this Eid open new doors of success, health, and happiness for you and your family.</p>
+      </div>
+      <div class="wish-card reveal">
+        <span class="wish-icon">❤️</span>
+        <h4>Unity</h4>
+        <p>May the spirit of Eid bring us closer together and strengthen the bonds of love.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-crescent">☪</div>
+    <p class="footer-text">Eid Mubarak to you and your loved ones</p>
+    <p class="footer-sub">Made with love and code &bull; 2026</p>
+  </footer>
+
+  <!-- Celebration FAB -->
+  <button class="fab" id="celebrate-btn" title="Celebrate!">🎆</button>
+
+  <script>
+    /* ==================== PARTICLES ==================== */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let W, H;
+
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = document.documentElement.scrollHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * W;
+        this.y = Math.random() * H;
+        this.size = Math.random() * 2.5 + .5;
+        this.speedY = -(Math.random() * .3 + .1);
+        this.speedX = (Math.random() - .5) * .2;
+        this.opacity = Math.random() * .5 + .2;
+        this.fadeDir = Math.random() > .5 ? 1 : -1;
+        this.hue = Math.random() > .5 ? 45 : 35;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        this.opacity += this.fadeDir * .003;
+        if (this.opacity > .7) this.fadeDir = -1;
+        if (this.opacity < .1) this.fadeDir = 1;
+        if (this.y < -10) { this.y = H + 10; this.x = Math.random() * W; }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue}, 70%, 70%, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      resizeCanvas();
+      const count = Math.min(Math.floor((W * H) / 12000), 150);
+      particles = Array.from({ length: count }, () => new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+
+    /* ==================== LANTERNS ==================== */
+    const blessings = [
+      'Peace be upon you',
+      'May Allah bless you',
+      'Joy & Happiness',
+      'Prosperity & Health',
+      'Love & Mercy',
+    ];
+    const lanternColors = ['#d4a853', '#e07b5d', '#5dba8e', '#5d8eba', '#ba5d8e'];
+
+    function createLanterns() {
+      const row = document.getElementById('lanterns-row');
+      blessings.forEach((msg, i) => {
+        const dur = 3.5 + Math.random() * 2;
+        const color = lanternColors[i];
+        const lantern = document.createElement('div');
+        lantern.className = 'lantern';
+        lantern.style.setProperty('--glow-color', color + '80');
+        lantern.style.setProperty('--swing-dur', dur + 's');
+        lantern.innerHTML = `
+      <svg viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg">
+        <line x1="40" y1="0" x2="40" y2="30" stroke="${color}" stroke-width="1.5" opacity=".6"/>
+        <ellipse cx="40" cy="28" rx="4" ry="4" fill="${color}" opacity=".8"/>
+        <path d="M25 45 Q25 28 40 28 Q55 28 55 45" fill="none" stroke="${color}" stroke-width="1.5"/>
+        <rect x="24" y="44" width="32" height="60" rx="3" fill="${color}" opacity=".15"
+              stroke="${color}" stroke-width="1.2"/>
+        <line x1="40" y1="48" x2="40" y2="100" stroke="${color}" stroke-width=".5" opacity=".3"/>
+        <line x1="28" y1="65" x2="52" y2="65" stroke="${color}" stroke-width=".5" opacity=".3"/>
+        <line x1="28" y1="85" x2="52" y2="85" stroke="${color}" stroke-width=".5" opacity=".3"/>
+        <path d="M24 104 Q24 115 40 118 Q56 115 56 104" fill="${color}" opacity=".2"
+              stroke="${color}" stroke-width="1"/>
+        <ellipse cx="40" cy="122" rx="3" ry="5" fill="${color}" opacity=".3"/>
+        <!-- glow -->
+        <ellipse cx="40" cy="75" rx="18" ry="30" fill="${color}" opacity=".06"/>
+      </svg>
+      <div class="lantern-message">${msg}</div>`;
+        lantern.addEventListener('click', () => {
+          lantern.classList.toggle('active');
+        });
+        row.appendChild(lantern);
+      });
+    }
+
+    /* ==================== CARD FLIP ==================== */
+    document.getElementById('card-inner').addEventListener('click', function () {
+      this.classList.toggle('flipped');
+      if (this.classList.contains('flipped')) launchFireworks(3);
+    });
+
+    /* ==================== FIREWORKS ==================== */
+    function launchFireworks(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => createFirework(), i * 400);
+      }
+    }
+
+    function createFirework() {
+      const container = document.getElementById('fireworks');
+      const x = 15 + Math.random() * 70;
+      const y = 10 + Math.random() * 40;
+      const colors = ['#d4a853', '#e07b5d', '#5dba8e', '#fff', '#ba5d8e', '#5d8eba'];
+      const sparkCount = 30;
+
+      for (let i = 0; i < sparkCount; i++) {
+        const spark = document.createElement('div');
+        const angle = (Math.PI * 2 * i) / sparkCount;
+        const dist = 40 + Math.random() * 60;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = 2 + Math.random() * 3;
+        Object.assign(spark.style, {
+          position: 'absolute',
+          left: x + '%', top: y + '%',
+          width: size + 'px', height: size + 'px',
+          borderRadius: '50%',
+          background: color,
+          boxShadow: `0 0 6px ${color}`,
+          transition: `all ${.6 + Math.random() * .6}s cubic-bezier(.25,.46,.45,.94)`,
+          opacity: '1',
+          pointerEvents: 'none',
+        });
+        container.appendChild(spark);
+        requestAnimationFrame(() => {
+          spark.style.transform = `translate(${dx}px, ${dy}px)`;
+          spark.style.opacity = '0';
+        });
+        setTimeout(() => spark.remove(), 1500);
+      }
+    }
+
+    document.getElementById('celebrate-btn').addEventListener('click', () => launchFireworks(5));
+
+    /* ==================== GEOMETRIC PATTERN ==================== */
+    function drawGeometricPattern() {
+      const pat = document.getElementById('geo-pattern');
+      let svg = '<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">';
+      const size = 40;
+      for (let x = 0; x < 600; x += size) {
+        for (let y = 0; y < 700; y += size) {
+          svg += `<rect x="${x}" y="${y}" width="${size}" height="${size}"
+               fill="none" stroke="#d4a853" stroke-width=".5" transform="rotate(45 ${x + size / 2} ${y + size / 2})"/>`;
+        }
+      }
+      svg += '</svg>';
+      pat.innerHTML = svg;
+    }
+
+    /* ==================== SCROLL REVEAL ==================== */
+    function initReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: .15 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    /* ==================== CLICK SPARKLE ==================== */
+    document.addEventListener('click', (e) => {
+      for (let i = 0; i < 6; i++) {
+        const spark = document.createElement('div');
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 15 + Math.random() * 25;
+        Object.assign(spark.style, {
+          position: 'fixed',
+          left: e.clientX + 'px', top: e.clientY + 'px',
+          width: '4px', height: '4px',
+          borderRadius: '50%',
+          background: '#d4a853',
+          boxShadow: '0 0 6px #d4a853',
+          pointerEvents: 'none',
+          zIndex: '9998',
+          transition: 'all .5s ease-out',
+          opacity: '1',
+        });
+        document.body.appendChild(spark);
+        requestAnimationFrame(() => {
+          spark.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
+          spark.style.opacity = '0';
+        });
+        setTimeout(() => spark.remove(), 600);
+      }
+    });
+
+    /* ==================== 1. PERSONALIZATION MODAL ==================== */
+    (function () {
+      const modal = document.getElementById('personalize-modal');
+      const submitBtn = document.getElementById('modal-submit-btn');
+      const skipBtn = document.getElementById('modal-skip-btn');
+      const nameInput = document.getElementById('input-your-name');
+      const senderInput = document.getElementById('input-sender');
+
+      function dismissModal() {
+        modal.classList.add('hiding');
+        setTimeout(() => modal.remove(), 450);
+      }
+
+      submitBtn.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        const sender = senderInput.value.trim();
+
+        if (name) {
+          document.querySelector('.hero-title').textContent = 'Eid Mubarak, ' + name + '!';
+        }
+        if (sender) {
+          document.querySelector('.card-back .signature').textContent = '\u2014 With love, ' + sender;
+        }
+        dismissModal();
+      });
+
+      skipBtn.addEventListener('click', dismissModal);
+
+      // Allow Enter key to submit
+      [nameInput, senderInput].forEach(input => {
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') submitBtn.click();
+        });
+      });
+    })();
+
+    /* ==================== 2. COUNTDOWN TIMER ==================== */
+    (function () {
+      const eidDate = new Date('2026-06-27T00:00:00').getTime();
+      const daysEl = document.getElementById('cd-days');
+      const hoursEl = document.getElementById('cd-hours');
+      const minsEl = document.getElementById('cd-mins');
+      const secsEl = document.getElementById('cd-secs');
+      const doneEl = document.getElementById('countdown-done');
+      const gridEl = document.querySelector('.countdown-grid');
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = eidDate - now;
+
+        if (diff <= 0) {
+          gridEl.style.display = 'none';
+          doneEl.style.display = 'block';
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        daysEl.textContent = pad(days);
+        hoursEl.textContent = pad(hours);
+        minsEl.textContent = pad(mins);
+        secsEl.textContent = pad(secs);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+
+    /* ==================== 3. AMBIENT AUDIO TOGGLE ==================== */
+    (function () {
+      const btn = document.getElementById('audio-btn');
+      let audioCtx = null;
+      let masterGain = null;
+      let oscillators = [];
+      let breathInterval = null;
+      let isPlaying = false;
+
+      // Pentatonic scale frequencies
+      const notes = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25];
+
+      function createAudio() {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = 0;
+        masterGain.connect(audioCtx.destination);
+
+        notes.forEach((freq, i) => {
+          const group = [];
+          for (let d = -1; d <= 1; d++) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+            osc.frequency.value = freq * (1 + d * 0.03);
+            gain.gain.value = 0.02 / (i + 1);
+            const pan = audioCtx.createStereoPanner();
+            pan.pan.value = d * 0.3;
+            osc.connect(gain);
+            gain.connect(pan);
+            pan.connect(masterGain);
+            osc.start();
+            group.push({ osc, gain });
+          }
+          oscillators.push(group);
+        });
+
+        // Breathing texture
+        const start = audioCtx.currentTime;
+        breathInterval = setInterval(() => {
+          const t = audioCtx.currentTime - start;
+          oscillators.forEach((group, i) => {
+            group.forEach(v => {
+              const vol = (0.5 + 0.5 * Math.sin(t * 0.7 + i * 0.8)) * 0.02 / (i + 1);
+              v.gain.gain.setTargetAtTime(vol, audioCtx.currentTime, 0.5);
+            });
+          });
+        }, 80);
+      }
+
+      function fadeIn() {
+        if (!audioCtx) createAudio();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        masterGain.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 2);
+      }
+
+      function fadeOut() {
+        if (!masterGain) return;
+        masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+      }
+
+      btn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          fadeIn();
+          btn.textContent = '🔊';
+          btn.classList.add('playing');
+        } else {
+          fadeOut();
+          btn.textContent = '🔇';
+          btn.classList.remove('playing');
+        }
+      });
+    })();
+
+    /* ==================== 4. THEME SWITCHER ==================== */
+    (function () {
+      const toggleBtn = document.getElementById('theme-toggle');
+      const optionsPanel = document.getElementById('theme-options');
+      const swatches = optionsPanel.querySelectorAll('.theme-swatch');
+
+      toggleBtn.addEventListener('click', () => {
+        optionsPanel.classList.toggle('open');
+      });
+
+      swatches.forEach(swatch => {
+        swatch.addEventListener('click', () => {
+          const themeName = swatch.dataset.theme;
+          document.documentElement.setAttribute('data-theme', themeName);
+
+          swatches.forEach(s => s.classList.remove('active'));
+          swatch.classList.add('active');
+          optionsPanel.classList.remove('open');
+        });
+      });
+
+      // Close panel on outside click
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.theme-panel')) {
+          optionsPanel.classList.remove('open');
+        }
+      });
+    })();
+
+    /* ==================== 5. DOWNLOAD CARD AS IMAGE ==================== */
+    (function () {
+      const downloadBtn = document.getElementById('download-btn');
+      downloadBtn.addEventListener('click', () => {
+        const cardEl = document.querySelector('.eid-card');
+        downloadBtn.textContent = '⏳ Generating...';
+        downloadBtn.disabled = true;
+
+        html2canvas(cardEl, {
+          backgroundColor: null,
+          scale: 2,
+          useCORS: true,
+          logging: false,
+        }).then(canvas => {
+          const link = document.createElement('a');
+          link.download = 'eid-mubarak-card.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          downloadBtn.textContent = '📥 Download Card';
+          downloadBtn.disabled = false;
+        }).catch(() => {
+          downloadBtn.textContent = '📥 Download Card';
+          downloadBtn.disabled = false;
+        });
+      });
+    })();
+
+    /* ==================== 6. DU'A REVEAL SECTION ==================== */
+    (function () {
+      document.querySelectorAll('.dua-tile').forEach(tile => {
+        const header = tile.querySelector('.dua-header');
+        header.addEventListener('click', () => {
+          // Close other open tiles
+          document.querySelectorAll('.dua-tile.open').forEach(t => {
+            if (t !== tile) t.classList.remove('open');
+          });
+          tile.classList.toggle('open');
+        });
+      });
+    })();
+
+    /* ==================== 7. TASBIH COUNTER ==================== */
+    (function () {
+      const NAMES = [
+        { ar: 'الرَّحْمَنُ', en: 'Ar-Rahman', meaning: 'The All-Compassionate' },
+        { ar: 'الرَّحِيمُ', en: 'Ar-Raheem', meaning: 'The All-Merciful' },
+        { ar: 'الْمَلِكُ', en: 'Al-Malik', meaning: 'The King' },
+        { ar: 'الْقُدُّوسُ', en: 'Al-Quddus', meaning: 'The Pure One' },
+        { ar: 'السَّلَامُ', en: 'As-Salam', meaning: 'The Source of Peace' },
+        { ar: 'الْمُؤْمِنُ', en: 'Al-Mu\'min', meaning: 'The Inspirer of Faith' },
+        { ar: 'الْمُهَيْمِنُ', en: 'Al-Muhaymin', meaning: 'The Guardian' },
+        { ar: 'الْعَزِيزُ', en: 'Al-Aziz', meaning: 'The Victorious' },
+        { ar: 'الْجَبَّارُ', en: 'Al-Jabbar', meaning: 'The Compeller' },
+        { ar: 'الْمُتَكَبِّرُ', en: 'Al-Mutakabbir', meaning: 'The Supreme' },
+        { ar: 'الْخَالِقُ', en: 'Al-Khaliq', meaning: 'The Creator' },
+        { ar: 'الْبَارِئُ', en: 'Al-Bari', meaning: 'The Maker of Order' },
+        { ar: 'الْمُصَوِّرُ', en: 'Al-Musawwir', meaning: 'The Shaper of Beauty' },
+        { ar: 'الْغَفَّارُ', en: 'Al-Ghaffar', meaning: 'The Forgiving' },
+        { ar: 'الْقَهَّارُ', en: 'Al-Qahhar', meaning: 'The Subduer' },
+        { ar: 'الْوَهَّابُ', en: 'Al-Wahhab', meaning: 'The Giver of All' },
+        { ar: 'الرَّزَّاقُ', en: 'Ar-Razzaq', meaning: 'The Sustainer' },
+        { ar: 'الْفَتَّاحُ', en: 'Al-Fattah', meaning: 'The Opener' },
+        { ar: 'الْعَلِيمُ', en: 'Al-Alim', meaning: 'The Knower of All' },
+        { ar: 'الْقَابِضُ', en: 'Al-Qabid', meaning: 'The Constrictor' },
+        { ar: 'الْبَاسِطُ', en: 'Al-Basit', meaning: 'The Reliever' },
+        { ar: 'الْخَافِضُ', en: 'Al-Khafid', meaning: 'The Abaser' },
+        { ar: 'الرَّافِعُ', en: 'Ar-Rafi', meaning: 'The Exalter' },
+        { ar: 'الْمُعِزُّ', en: 'Al-Mu\'izz', meaning: 'The Bestower of Honours' },
+        { ar: 'الْمُذِلُّ', en: 'Al-Mudhill', meaning: 'The Humiliator' },
+        { ar: 'السَّمِيعُ', en: 'As-Sami', meaning: 'The Hearer of All' },
+        { ar: 'الْبَصِيرُ', en: 'Al-Basir', meaning: 'The Seer of All' },
+        { ar: 'الْحَكَمُ', en: 'Al-Hakam', meaning: 'The Judge' },
+        { ar: 'الْعَدْلُ', en: 'Al-Adl', meaning: 'The Just' },
+        { ar: 'اللَّطِيفُ', en: 'Al-Latif', meaning: 'The Subtle One' },
+        { ar: 'الْخَبِيرُ', en: 'Al-Khabir', meaning: 'The All-Aware' },
+        { ar: 'الْحَلِيمُ', en: 'Al-Halim', meaning: 'The Forbearing' },
+        { ar: 'الْعَظِيمُ', en: 'Al-Azim', meaning: 'The Magnificent' },
+        { ar: 'الْغَفُورُ', en: 'Al-Ghafur', meaning: 'The Forgiver & Hider of Faults' },
+        { ar: 'الشَّكُورُ', en: 'Ash-Shakur', meaning: 'The Rewarder of Thankfulness' },
+        { ar: 'الْعَلِيُّ', en: 'Al-Ali', meaning: 'The Highest' },
+        { ar: 'الْكَبِيرُ', en: 'Al-Kabir', meaning: 'The Greatest' },
+        { ar: 'الْحَفِيظُ', en: 'Al-Hafiz', meaning: 'The Preserver' },
+        { ar: 'الْمُقِيتُ', en: 'Al-Muqit', meaning: 'The Nourisher' },
+        { ar: 'الْحَسِيبُ', en: 'Al-Hasib', meaning: 'The Accounter' },
+        { ar: 'الْجَلِيلُ', en: 'Al-Jalil', meaning: 'The Mighty' },
+        { ar: 'الْكَرِيمُ', en: 'Al-Karim', meaning: 'The Generous' },
+        { ar: 'الرَّقِيبُ', en: 'Ar-Raqib', meaning: 'The Watchful One' },
+        { ar: 'الْمُجِيبُ', en: 'Al-Mujib', meaning: 'The Responder to Prayer' },
+        { ar: 'الْوَاسِعُ', en: 'Al-Wasi', meaning: 'The All-Comprehending' },
+        { ar: 'الْحَكِيمُ', en: 'Al-Hakim', meaning: 'The Perfectly Wise' },
+        { ar: 'الْوَدُودُ', en: 'Al-Wadud', meaning: 'The Loving One' },
+        { ar: 'الْمَجِيدُ', en: 'Al-Majid', meaning: 'The Majestic One' },
+        { ar: 'الْبَاعِثُ', en: 'Al-Ba\'ith', meaning: 'The Resurrector' },
+        { ar: 'الشَّهِيدُ', en: 'Ash-Shahid', meaning: 'The Witness' },
+        { ar: 'الْحَقُّ', en: 'Al-Haqq', meaning: 'The Truth' },
+        { ar: 'الْوَكِيلُ', en: 'Al-Wakil', meaning: 'The Trustee' },
+        { ar: 'الْقَوِيُّ', en: 'Al-Qawi', meaning: 'The Possessor of All Strength' },
+        { ar: 'الْمَتِينُ', en: 'Al-Matin', meaning: 'The Forceful One' },
+        { ar: 'الْوَلِيُّ', en: 'Al-Wali', meaning: 'The Governor' },
+        { ar: 'الْحَمِيدُ', en: 'Al-Hamid', meaning: 'The Praised One' },
+        { ar: 'الْمُحْصِي', en: 'Al-Muhsi', meaning: 'The Appraiser' },
+        { ar: 'الْمُبْدِئُ', en: 'Al-Mubdi', meaning: 'The Originator' },
+        { ar: 'الْمُعِيدُ', en: 'Al-Mu\'id', meaning: 'The Restorer' },
+        { ar: 'الْمُحْيِي', en: 'Al-Muhyi', meaning: 'The Giver of Life' },
+        { ar: 'الْمُمِيتُ', en: 'Al-Mumit', meaning: 'The Taker of Life' },
+        { ar: 'الْحَيُّ', en: 'Al-Hayy', meaning: 'The Ever Living One' },
+        { ar: 'الْقَيُّومُ', en: 'Al-Qayyum', meaning: 'The Self-Existing One' },
+        { ar: 'الْوَاجِدُ', en: 'Al-Wajid', meaning: 'The Finder' },
+        { ar: 'الْمَاجِدُ', en: 'Al-Majid', meaning: 'The Glorious' },
+        { ar: 'الْوَاحِدُ', en: 'Al-Wahid', meaning: 'The One' },
+        { ar: 'الصَّمَدُ', en: 'As-Samad', meaning: 'The Satisfier of All Needs' },
+        { ar: 'الْقَادِرُ', en: 'Al-Qadir', meaning: 'The All Powerful' },
+        { ar: 'الْمُقْتَدِرُ', en: 'Al-Muqtadir', meaning: 'The Creator of All Power' },
+        { ar: 'الْمُقَدِّمُ', en: 'Al-Muqaddim', meaning: 'The Expediter' },
+        { ar: 'الْمُؤَخِّرُ', en: 'Al-Mu\'akhkhir', meaning: 'The Delayer' },
+        { ar: 'الْأَوَّلُ', en: 'Al-Awwal', meaning: 'The First' },
+        { ar: 'الْآخِرُ', en: 'Al-Akhir', meaning: 'The Last' },
+        { ar: 'الظَّاهِرُ', en: 'Az-Zahir', meaning: 'The Manifest One' },
+        { ar: 'الْبَاطِنُ', en: 'Al-Batin', meaning: 'The Hidden One' },
+        { ar: 'الْوَالِي', en: 'Al-Wali', meaning: 'The Protecting Friend' },
+        { ar: 'الْمُتَعَالِي', en: 'Al-Muta\'ali', meaning: 'The Supreme One' },
+        { ar: 'الْبَرُّ', en: 'Al-Barr', meaning: 'The Doer of Good' },
+        { ar: 'التَّوَّابُ', en: 'At-Tawwab', meaning: 'The Guide to Repentance' },
+        { ar: 'الْمُنْتَقِمُ', en: 'Al-Muntaqim', meaning: 'The Avenger' },
+        { ar: 'الْعَفُوُّ', en: 'Al-Afuw', meaning: 'The Forgiver' },
+        { ar: 'الرَّؤُوفُ', en: 'Ar-Ra\'uf', meaning: 'The Clement' },
+        { ar: 'مَالِكُ الْمُلْكِ', en: 'Malik-al-Mulk', meaning: 'The Owner of All' },
+        { ar: 'ذُو الْجَلَالِ وَالْإِكْرَامِ', en: 'Dhul-Jalali-Wal-Ikram', meaning: 'Lord of Majesty and Bounty' },
+        { ar: 'الْمُقْسِطُ', en: 'Al-Muqsit', meaning: 'The Equitable One' },
+        { ar: 'الْجَامِعُ', en: 'Al-Jami', meaning: 'The Gatherer' },
+        { ar: 'الْغَنِيُّ', en: 'Al-Ghani', meaning: 'The Rich One' },
+        { ar: 'الْمُغْنِي', en: 'Al-Mughni', meaning: 'The Enricher' },
+        { ar: 'الْمَانِعُ', en: 'Al-Mani', meaning: 'The Preventer of Harm' },
+        { ar: 'الضَّارُّ', en: 'Ad-Darr', meaning: 'The Creator of The Harmful' },
+        { ar: 'النَّافِعُ', en: 'An-Nafi', meaning: 'The Creator of Good' },
+        { ar: 'النُّورُ', en: 'An-Nur', meaning: 'The Light' },
+        { ar: 'الْهَادِي', en: 'Al-Hadi', meaning: 'The Guide' },
+        { ar: 'الْبَدِيعُ', en: 'Al-Badi', meaning: 'The Originator' },
+        { ar: 'الْبَاقِي', en: 'Al-Baqi', meaning: 'The Everlasting One' },
+        { ar: 'الْوَارِثُ', en: 'Al-Warith', meaning: 'The Inheritor of All' },
+        { ar: 'الرَّشِيدُ', en: 'Ar-Rashid', meaning: 'The Righteous Teacher' },
+        { ar: 'الصَّبُورُ', en: 'As-Sabur', meaning: 'The Patient One' },
+      ];
+
+      let nameIdx = 0;
+      let count = 0;
+      let target = 33;
+      const CIRC = 2 * Math.PI * 54; // ~339.3
+
+      const arEl = document.getElementById('tasbih-arabic');
+      const enEl = document.getElementById('tasbih-name');
+      const meanEl = document.getElementById('tasbih-meaning');
+      const posEl = document.getElementById('tasbih-pos');
+      const countEl = document.getElementById('tasbih-count');
+      const targetEl = document.getElementById('tasbih-count-target');
+      const ringEl = document.getElementById('tasbih-ring');
+      const msgEl = document.getElementById('tasbih-msg');
+      const dotsWrap = document.getElementById('tasbih-dots');
+
+      function renderName() {
+        const n = NAMES[nameIdx];
+        arEl.textContent = n.ar;
+        enEl.textContent = n.en;
+        meanEl.textContent = n.meaning;
+        posEl.textContent = (nameIdx + 1) + ' / 99';
+      }
+
+      function renderDots() {
+        dotsWrap.innerHTML = '';
+        for (let i = 0; i < target; i++) {
+          const d = document.createElement('div');
+          d.className = 'tasbih-dot' + (i < count ? ' done' : '') + (i === count ? ' current' : '');
+          dotsWrap.appendChild(d);
+        }
+      }
+
+      function updateRing() {
+        const pct = count / target;
+        ringEl.style.strokeDashoffset = CIRC * (1 - pct);
+      }
+
+      function resetCount() {
+        count = 0;
+        countEl.textContent = '0';
+        targetEl.textContent = '/ ' + target;
+        msgEl.textContent = '';
+        updateRing();
+        renderDots();
+      }
+
+      document.getElementById('tasbih-prev').addEventListener('click', () => {
+        nameIdx = (nameIdx - 1 + 99) % 99;
+        renderName();
+        resetCount();
+      });
+      document.getElementById('tasbih-next').addEventListener('click', () => {
+        nameIdx = (nameIdx + 1) % 99;
+        renderName();
+        resetCount();
+      });
+
+      document.getElementById('tasbih-tap').addEventListener('click', () => {
+        if (count >= target) return;
+        count++;
+        countEl.textContent = count;
+        updateRing();
+        renderDots();
+        if (count >= target) {
+          msgEl.textContent = 'ما شاء الله — Complete!';
+        }
+      });
+
+      document.querySelectorAll('.tasbih-target-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tasbih-target-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          target = parseInt(btn.dataset.target, 10);
+          resetCount();
+        });
+      });
+
+      // Initial render
+      renderName();
+      resetCount();
+    })();
+
+    /* ==================== INIT ==================== */
+    window.addEventListener('load', () => {
+      initParticles();
+      animateParticles();
+      createLanterns();
+      drawGeometricPattern();
+      initReveal();
+      setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 1800);
+    });
+
+    /* Recalc particle canvas on scroll (lazy) */
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(resizeCanvas, 200);
+    });
+  </script>
+</body>
+
+</html>
