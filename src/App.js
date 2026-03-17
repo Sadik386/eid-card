@@ -240,6 +240,7 @@ export default function App() {
         <section className="hero" id="hero">
           <div className="stars" aria-hidden="true" />
           <div className="hero-bg-glow" aria-hidden="true" />
+          <div className="ambient-orb" style={{ width: '500px', height: '500px', bottom: '10%', left: '20%', opacity: 0.3 }} aria-hidden="true" />
           <div className="crescent-moon">{'\u262A'}</div>
           <h1 className="arabic-greeting">{'\u0639\u064A\u062F \u0645\u0628\u0627\u0631\u0643'}</h1>
           <h2 className="hero-title-text">{heroTitle}</h2>
@@ -255,6 +256,7 @@ export default function App() {
 
         {/* ═══ LANTERNS SECTION ═══ */}
         <section className="lanterns-section" id="lanterns">
+          <div className="ambient-orb" style={{ width: '600px', height: '400px', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} aria-hidden="true" />
           <div className="section-divider reveal"><div className="line" /><span className="ornament">{'\u2726'}</span><div className="line" /></div>
           <h2 className="section-heading reveal">Lanterns of Blessings</h2>
           <p className="section-sub reveal">Tap each lantern to reveal a blessing</p>
@@ -385,6 +387,7 @@ export default function App() {
 
         {/* ═══ WISHES SECTION ═══ */}
         <section className="wishes-section" id="wishes">
+          <div className="ambient-orb" style={{ width: '500px', height: '500px', top: '40%', right: '10%', animationDelay: '2s' }} aria-hidden="true" />
           <div className="section-divider reveal"><div className="line" /><span className="ornament">{'\u2726'}</span><div className="line" /></div>
           <h2 className="section-heading reveal">Heartfelt Wishes</h2>
           <div className="wishes-grid">

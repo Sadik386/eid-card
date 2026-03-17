@@ -13,7 +13,6 @@ export default function IntroAnimation({ theme, onComplete }) {
   const subRef = useRef(null);
   const btnRef = useRef(null);
   const glowRef = useRef(null);
-  const particlesRef = useRef([]);
 
   useEffect(() => {
     const tl = gsap.timeline({
