@@ -74,7 +74,7 @@ export default function App() {
   const [celebrateKey, setCelebrateKey] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [cardFlipped, setCardFlipped] = useState(false);
-  const [activeLanterns, setActiveLanterns] = useState({});
+  const [activeLantern, setActiveLantern] = useState(null);
   const [downloading, setDownloading] = useState(false);
   const cardRef = useRef(null);
   const fireworkRef = useRef(null);
@@ -197,7 +197,7 @@ export default function App() {
   }, [downloading]);
 
   const toggleLantern = useCallback((i) => {
-    setActiveLanterns((prev) => ({ ...prev, [i]: !prev[i] }));
+    setActiveLantern((prev) => (prev === i ? null : i));
   }, []);
 
   if (!introComplete) {
@@ -264,7 +264,7 @@ export default function App() {
             {BLESSINGS.map((blessing, i) => {
               const color = LANTERN_COLORS[i];
               const dur = LANTERN_DURATIONS[i];
-              const isActive = activeLanterns[i];
+              const isActive = activeLantern === i;
               return (
                 <div
                   key={i}
